@@ -25,8 +25,6 @@ const SignUpForm = () => {
   //3. Descontruction of values inside object
   const { displayName, email, password, confirmPassword } = formFields;
 
-  console.log(formFields);
-
   const resetFormFields = () => {
     setFormFields(defaultFormFields);
   };
