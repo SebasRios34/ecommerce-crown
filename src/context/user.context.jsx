@@ -7,6 +7,7 @@ export const UserContext = createContext({
   setCurrentUser: () => null,
 });
 
+//This is the component itself normally wrapped around the <App /> component
 export const UserProvider = ({ children }) => {
   const [currentUser, setCurrentUser] = useState(null);
   const value = { currentUser, setCurrentUser };
