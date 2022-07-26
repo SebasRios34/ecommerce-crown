@@ -1,7 +1,7 @@
 import SignUpForm from "../../components/sign-up-form/sign-up-form.components";
 import SignInForm from "../../components/sign-in-form/sign-in-form.components";
 
-import { AuthenticationContainer } from "./authentication.styles";
+import "./authentication.styles.scss";
 
 const Authentication = () => {
   //using useEffect is going to help us call data from the sign-in with redirect
@@ -19,10 +19,10 @@ const Authentication = () => {
   */
 
   return (
-    <AuthenticationContainer>
+    <div className="authentication-container">
       <SignInForm />
       <SignUpForm />
-    </AuthenticationContainer>
+    </div>
   );
 };
 
