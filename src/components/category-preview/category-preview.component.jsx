@@ -8,6 +8,13 @@ import {
 } from "./category-preview.styles.jsx";
 
 const CategoryPreview = ({ title, products }) => {
+  /*
+    h2 contains a span/title (styled component) since is it a clickable component
+
+    preview section:
+      filter: keep everything(products) if the index is less than 4
+      map: then map through all the filtered products
+  */
   return (
     <CategoryPreviewContainer>
       <h2>

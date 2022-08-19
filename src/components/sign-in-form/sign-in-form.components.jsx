@@ -16,33 +16,60 @@ const defaultFormFields = {
 };
 
 const SignInForm = () => {
+  /*
+    using useState instead of useContext
+    set to defaultFormFields: object with email and password passed as empty strings
+  */
   const [formFields, setFormFields] = useState(defaultFormFields);
   const { email, password } = formFields;
 
-  //using useContext is going to allow us to set user data to then be used in other components
-  //const { setCurrentUser } = useContext(UserContext);
-
+  /*
+    Used with useContext:
+    using useContext is going to allow us to set user data to then be used in other components
+    const { setCurrentUser } = useContext(UserContext);
+  */
+  //handler for setFormFields to reset the values for email and password
   const resetFormFields = () => {
     setFormFields(defaultFormFields);
   };
 
+  /*
+    handler to call the Sign In with Google
+    used as an async method due to the fact that the sign in pop needs to load/to wait
+  */
   const signInWithGoogle = async () => {
     await signInWithGooglePopup();
   };
 
+  //handler when the form is submitted
   const handleSubmit = async (event) => {
+    //prevent any reload of the page
     event.preventDefault();
 
     try {
+      /*
+        Firebase imported method:
+        method used to sign in user with email and password
+        validations are created in firebase js
+      */
       const { user } = await signInAuthUserWithEmailAndPassword(
         email,
         password
       );
-      //after user clicks submit the user data is set using setCurrentUser
-      //setCurrentUser(user);
+      /*
+        Used with useContext:
+        after user clicks submit the user data is set using setCurrentUser
+        setCurrentUser(user);
+      */
 
+      //inputs are reseted if the form is submitted successfully
       resetFormFields();
     } catch (error) {
+      /*
+        error is obtain thanks to the firebase libraries:
+          auth/wrong-password: typed incorrect password
+          auth/user-not-found: user is not associated with the email
+      */
       switch (error.code) {
         case "auth/wrong-password":
           alert("incorrect password for email: " + email);
@@ -57,6 +84,10 @@ const SignInForm = () => {
     }
   };
 
+  /*
+    handler for changes in the form inputs:
+    as soon as a new input is detected the function executes
+  */
   const handleChange = (event) => {
     const { name, value } = event.target;
     setFormFields({ ...formFields, [name]: value });

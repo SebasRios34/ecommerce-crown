@@ -7,6 +7,7 @@ import { addColletionAndDocuments } from "../utils/firebase/firebase.utils.js";
 import SHOP_DATA from "../shop-data.js";
 */
 
+//Categories Context 'constructor' with all variables and methods
 export const CategoriesContext = createContext({
   categoriesMap: {},
 });

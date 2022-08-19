@@ -22,14 +22,18 @@ const defaultFormFields = {
 const SignUpForm = () => {
   //2. create variable with value and set using useState
   const [formFields, setFormFields] = useState(defaultFormFields);
+
   //3. Descontruction of values inside object
   const { displayName, email, password, confirmPassword } = formFields;
 
+  //reset handler to reset all input forms
   const resetFormFields = () => {
     setFormFields(defaultFormFields);
   };
 
+  //handler submit
   const handleSubmit = async (event) => {
+    //prevents any sudden reload
     event.preventDefault();
 
     if (password !== confirmPassword) {
@@ -38,14 +42,29 @@ const SignUpForm = () => {
     }
 
     try {
+      /*
+        Firebase imported method:
+        method used to sign up user with email and password
+        validations are created in firebase js
+      */
       const { user } = await createAuthUserWithEmailAndPassword(
         email,
         password
       );
 
+      /*
+        Firebase imported method:
+        method used to create a user document into the database
+      */
       await createUserDocumentFromAuth(user, { displayName });
+
+      //reset all the form inputs if create of user and document is successful
       resetFormFields();
     } catch (error) {
+      /*
+        error is obtain thanks to the firebase libraries:
+          auth/email-already-in-use: user already has email assigned
+      */
       if (error.code === "auth/email-already-in-use") {
         alert("Cannot create user, email already in use");
       } else {

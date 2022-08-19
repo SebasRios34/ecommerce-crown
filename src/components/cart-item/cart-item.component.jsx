@@ -8,6 +8,7 @@ import {
 } from "./cart-item.styles.jsx";
 
 const CartItem = ({ cartItem }) => {
+  //destructioring of cartItem
   const { name, imageUrl, price, quantity } = cartItem;
 
   return (
